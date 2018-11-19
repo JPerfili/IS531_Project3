@@ -9,11 +9,11 @@ var AssetManager = window.AssetManager || {};
             data: JSON.stringify({
                 item: {
                     assetID: new_item.assetID,
-                    text: new_item.text,
                     assetLocation: new_item.assetLocation,
                     description: new_item.description,
                     implementationMonth: new_item.implementationMonth,
                     implementationYear: new_item.implementationYear,
+                    maintenanceNotes: new_item.maintenanceNotes,
                     manufacturer: new_item.manufacturer,
                     manufacturerPart: new_item.manufacturerPart,
                     organizationalTag: new_item.organizationalTag
@@ -76,11 +76,11 @@ var AssetManager = window.AssetManager || {};
             data: JSON.stringify({
                 item: {
                     assetID: new_item.assetID,
-                    text: new_item.text,
                     assetLocation: new_item.assetLocation,
                     description: new_item.description,
                     implementationMonth: new_item.implementationMonth,
                     implementationYear: new_item.implementationYear,
+                    maintenanceNotes: new_item.maintenanceNotes,
                     manufacturer: new_item.manufacturer,
                     manufacturerPart: new_item.manufacturerPart,
                     organizationalTag: new_item.organizationalTag
