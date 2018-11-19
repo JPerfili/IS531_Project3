@@ -4,20 +4,22 @@ $(document).ready(function () {
 
     // Switch from details to modify modal 
     $("#switch-modify").click(function () {
-        console.log("Switching from modify to details modal.")
+        // Close details modal
         $("#detailsModal").modal('hide');
-        $("#modifyModal").modal('show');
+
+        // Get current item by ID and populate modify modal with records. 
+        modifyModal($("#dm-itemID").text())
     });
     
 });
 
 // Get target list from API and send to next function to be added to page appropriately
-function getData(type, url, OnCompletionFunction) {
+function getData(method, url, OnCompletionFunction) {
     // Create a request variable and assign a new XMLHttpRequest object to it.
     var request = new XMLHttpRequest();
 
     // Open a new connection, using the GET request on the URL endpoint
-    request.open(type, url, true);
+    request.open(method, url, true);
 
     // Send json response to populateTable function when received
     request.onload = function () {
@@ -51,15 +53,44 @@ function updateTable(itemList) {
         r[++j] = itemList[key]["implementationMonth"];
         r[++j] = '/';
         r[++j] = itemList[key]["implementationYear"];
-        r[++j] = '</td><td><a href="#" onclick=detailsModal("' + itemList[key]["assetID"] + '")>Details</a> | <a href="#"data-toggle="modal" data-target="#modifyModal">Modify</a></td></tr>';
+        r[++j] = '</td><td><a href="#" onclick=detailsModal("' + itemList[key]["assetID"] + '")>Details</a> | <a href="#" onclick=modifyModal("' + itemList[key]["assetID"] + '")>Modify</a></td></tr>';
     }
 
     // Insert dynamically created rows into table
     $('#tableBody').html(r.join('')); 
 }
 
-function showDetailsModal(id) {
-    console.log("The ID is: " + String(id));
+function showDetailsModal(item) {
+
+    // Populate details modal with item information
+    $("#dm-itemID").text(item["assetID"])
+    $("#dm-itemLocation").text(item["assetLocation"])
+    $("#dm-itemTag").text(item["organizationalTag"])
+    $("#dm-itemManufacturer").text(item["manufacturer"])
+    $("#dm-itemPartNumber").text(item["manufacturerPart"])
+    $("#dm-itemDescription").text(item["description"])
+    $("#dm-itemImplemented").text(item["implementationMonth"] + '/' + item["implementationYear"])
+    $("#dm-itemNotes").text(item["maintenanceNotes"])
+
+    // Show modal
+    $("#detailsModal").modal('show');
+}
+
+function showModifyModal(item) {
+
+    // Populate form input fields with existing values
+    $("#assetID").val(item["assetID"])
+    $("#assignedLocation").val(item["assetLocation"])
+    $("#organizationalTag").val(item["organizationalTag"])
+    $("#manufacturer").val(item["manufacturer"])
+    $("#manufacturerPart").val(item["manufacturerPart"])
+    $("#description").val(item["description"])
+    $("#implementationMonth").val(item["implementationMonth"])
+    $("#implementationYear").val(item["implementationYear"])
+    $("#maintenanceNotes").val(item["maintenanceNotes"])
+
+    // Show modal
+    $("#modifyModal").modal('show');
 }
 
 // Populate table with list of items
@@ -71,6 +102,11 @@ function populateTable() {
 
 function detailsModal(id) {
     // Call list-items API to get item and send data to showDetailsModal function to fill modal
-    getData('POST', 'https://bll0hoveu3.execute-api.us-east-1.amazonaws.com/prod/get-items', updateTable)
+    getData('POST', 'https://bll0hoveu3.execute-api.us-east-1.amazonaws.com/prod/get-items?assetID=' + id, showDetailsModal)
+}
+
+function modifyModal(id) {
+    // Call list-items API to get item and send data to showModifyModal function to fill modal
+    getData('POST', 'https://bll0hoveu3.execute-api.us-east-1.amazonaws.com/prod/get-items?assetID=' + id, showModifyModal)
 }
 
