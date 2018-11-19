@@ -54,7 +54,7 @@ var AssetManager = window.AssetManager || {};
 
     function register(email, password, onSuccess, onFailure) {
         var dataEmail = {
-            Name: 'email',
+            Name: 'username',
             Value: email
         };
         var attributeEmail = new AmazonCognitoIdentity.CognitoUserAttribute(dataEmail);
