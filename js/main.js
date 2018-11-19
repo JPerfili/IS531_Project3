@@ -12,12 +12,12 @@ $(document).ready(function () {
 });
 
 // Get target list from API and send to next function to be added to page appropriately
-function getData(url, OnCompletionFunction) {
+function getData(type, url, OnCompletionFunction) {
     // Create a request variable and assign a new XMLHttpRequest object to it.
     var request = new XMLHttpRequest();
 
     // Open a new connection, using the GET request on the URL endpoint
-    request.open('GET', url, true);
+    request.open(type, url, true);
 
     // Send json response to populateTable function when received
     request.onload = function () {
@@ -66,11 +66,11 @@ function showDetailsModal(id) {
 function populateTable() {
 
     // Call list-items API to get list of all items and send data to updateTable function to fill table
-    getData('https://bll0hoveu3.execute-api.us-east-1.amazonaws.com/prod/list-items', updateTable)
+    getData('GET', 'https://bll0hoveu3.execute-api.us-east-1.amazonaws.com/prod/list-items', updateTable)
 }
 
 function detailsModal(id) {
     // Call list-items API to get item and send data to showDetailsModal function to fill modal
-    getData('https://bll0hoveu3.execute-api.us-east-1.amazonaws.com/prod/get-items?assetID=' + id, updateTable)
+    getData('POST', 'https://bll0hoveu3.execute-api.us-east-1.amazonaws.com/prod/get-items', updateTable)
 }
 
