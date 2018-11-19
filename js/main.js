@@ -1,5 +1,7 @@
 $(document).ready(function () {
-    
+
+    loadDoc();
+
     // Switch from details to modify modal 
     $("#switch-modify").click(function () {
         console.log("Switching from modify to details modal.")
@@ -9,69 +11,49 @@ $(document).ready(function () {
 
 });
 
-var AssetManager = window.AssetManager || {};
-AssetManager.map = AssetManager.map || {};
+function populateTable(items) {
 
-// function requestGET() {
-//     $.ajax({
-//         method: 'GET',
-//         url: 	_config.api.invokeUrl + '/list-items'
-//         // headers: {
-//         //     Authorization: authToken
-//         // },
-//         // data: JSON.stringify({
-//         //     PickupLocation: {
-//         //         Latitude: pickupLocation.latitude,
-//         //         Longitude: pickupLocation.longitude
-//         //     }
-//         // }),
-//         // contentType: 'application/json',
-//         // success: completeRequest,
-//         // error: function ajaxError(jqXHR, textStatus, errorThrown) {
-//         //     console.error('Error requesting ride: ', textStatus, ', Details: ', errorThrown);
-//         //     console.error('Response: ', jqXHR.responseText);
-//         //     alert('An error occured when requesting your unicorn:\n' + jqXHR.responseText);
-//         // }
-//     });
-// }JQuery();
+    // Get list of items in json
+    var itemList = getItems();
 
-
-(function adminList(){
-
-   var authToken;
-   AssetManager.authToken.then(function setAuthToken(token) {
-       if (token) {
-           authToken = token;
-       } else {
-           window.location.href = '/login.html';
-       }
-   }).catch(function handleTokenError(error) {
-       alert(error);
-       window.location.href = '/login.html';
-   });
-    
-    function requestList() {
-        document.write("test");
-        $.ajax({
-            method: 'GET',
-            //url: window._config.api.invokeUrl + '/list-items',
-            url: 'https://bll0hoveu3.execute-api.us-east-1.amazonaws.com/prod/list-items',
-            headers: {Authorization: authToken},
-            contentType: 'application/json',
-            sucess: completeRequest
-        });
+    // Create HTML table rows from JSON
+    var r = new Array(), j = -1;
+    for (var key=0, size=itemList.length; key<size; key++){
+        r[++j] ='<tr><td>';
+        r[++j] = itemList[key]["assetID"];
+        r[++j] = '</td><td>';
+        r[++j] = itemList[key]["assetLocation"];
+        r[++j] = '</td><td>';
+        r[++j] = itemList[key]["organizationalTag"];
+        r[++j] = '</td><td>';
+        r[++j] = itemList[key]["manufacturer"];
+        r[++j] = '</td><td>';
+        r[++j] = itemList[key]["manufacturerPart"];
+        r[++j] = '</td><td>';
+        r[++j] = itemList[key]["description"];
+        r[++j] = '</td><td>';
+        r[++j] = itemList[key]["implementationMonth"];
+        r[++j] = '/';
+        r[++j] = itemList[key]["implementationYear"];
+        r[++j] = '</td><td><a href="#" data-toggle="modal" data-target="#detailsModal">Details</a> | <a href="#"data-toggle="modal" data-target="#modifyModal">Modify</a></td></tr>';
     }
 
-    function completeRequest(result){
-        var assetID;
-        assetID = result[0].assetID;
-        
+    // Insert dynamically created rows into 
+    $('#tableBody').html(r.join('')); 
+}
+
+function getItems() {
+    // Create a request variable and assign a new XMLHttpRequest object to it.
+    var request = new XMLHttpRequest();
+
+    // Open a new connection, using the GET request on the URL endpoint
+    request.open('GET', 'https://bll0hoveu3.execute-api.us-east-1.amazonaws.com/prod/list-items', true);
+
+    // Send json response to populateTable function when received
+    request.onload = function () {
+        return this.responseText;
     }
-    
-    
-    requestList();
-    
-}(jQuery));
 
-console.log(window._config.api.invokeUrl + '/list-items',)
-
+    // Send request
+    request.send();
+}

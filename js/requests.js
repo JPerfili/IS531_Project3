@@ -1,5 +1,6 @@
 var AssetManager = window.AssetManager || {};
 
+// Create new item
 (function PostManager($) {
     function create_item(new_item) {
         $.ajax({
@@ -30,6 +31,8 @@ var AssetManager = window.AssetManager || {};
     function completeRequest(result) {
         console.log('Response received from API: ', result);
     }
+
+    // Delete item
     function delete_item(new_item) {
         $.ajax({
             method: 'POST',
@@ -46,6 +49,8 @@ var AssetManager = window.AssetManager || {};
             }
         })
     }
+
+    // Get item
     function get_item(new_item) {
         $.ajax({
             method: 'POST',
@@ -62,6 +67,8 @@ var AssetManager = window.AssetManager || {};
             }
         })
     }
+
+    // Update item
     function update_item(new_item) {
         $.ajax({
             method: 'POST',
