@@ -47,8 +47,6 @@ function updateTable(itemList) {
         r[++j] = '</td><td>';
         r[++j] = itemList[key]["manufacturer"];
         r[++j] = '</td><td>';
-        r[++j] = itemList[key]["manufacturerPart"];
-        r[++j] = '</td><td>';
         r[++j] = itemList[key]["description"];
         r[++j] = '</td><td>';
         r[++j] = itemList[key]["implementationMonth"];
