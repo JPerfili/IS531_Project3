@@ -46,13 +46,22 @@
         </br>
 
         <div class="row">
-
+            <div class="col">
+                <h2>Entries</h2>
+            </div>
+            <div class="col-3">
+                <div class="form-group has-danger">
+                    <input type="text" onkeyup=refineTable() class="form-control" id="searchAssetID" placeholder="Search by Asset ID">
+                    <div class="invalid-feedback">Sorry, that username's taken. Try another?</div>
+                </div>
+            </div>
+            <div>
+                <button class="btn btn-info" onclick=refineTable()>Search</button>
+            </div>
         </div>
-        </br>
 
         <div class="row">
-            <h2>Entries</h2>
-            <table class="table table-hover">
+            <table id="dataTable" class="table table-hover">
                 <thead>
                     <tr>
                         <th scope="col">ID</th>
@@ -67,9 +76,12 @@
                 <tbody id="tableBody">
 
                     <!-- Data will be dynamically loaded in here -->
-
                 </tbody>
             </table>
+        </div>
+
+        <div id="noDataError" class="row">
+            <div class="col text-warning text-center">No Data</div>
         </div>
 
         <!-- Details Modal -->

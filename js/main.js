@@ -11,7 +11,7 @@ $(document).ready(function () {
         // Get current item by ID and populate modify modal with records. 
         modifyModal($("#dm-itemID").text())
     });
-    
+
 });
 
 // Get target list from API and send to next function to be added to page appropriately
@@ -32,13 +32,35 @@ function getData(method, url, OnCompletionFunction) {
     request.send();
 }
 
+function checkForData() {
+    var table, tr, td, i;
+    table = document.getElementById("dataTable");
+    tr = table.getElementsByTagName("tr");
+    var allHidden = true;
+    for (i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td")[0];
+        if (td) {
+            if (tr[i].style.display == "") {
+                allHidden = false;
+            }
+        }
+    }
+
+    if (allHidden == true) {
+        $("#noDataError").show();
+    }
+    else {
+        $("#noDataError").hide();
+    }
+}
+
 // Enter items into table
 function updateTable(itemList) {
 
     // Create HTML table rows from itemList JSON
     var r = new Array(), j = -1;
-    for (var key=0, size=itemList.length; key<size; key++){
-        r[++j] ='<tr><td>';
+    for (var key = 0, size = itemList.length; key < size; key++) {
+        r[++j] = '<tr><td>';
         r[++j] = itemList[key]["assetID"];
         r[++j] = '</td><td>';
         r[++j] = itemList[key]["assetLocation"];
@@ -50,13 +72,16 @@ function updateTable(itemList) {
         r[++j] = itemList[key]["description"];
         r[++j] = '</td><td>';
         r[++j] = itemList[key]["implementationMonth"];
-        r[++j] = '/';
+        r[++j] = ', ';
         r[++j] = itemList[key]["implementationYear"];
         r[++j] = '</td><td><a href="#" onclick=detailsModal("' + itemList[key]["assetID"] + '")>Details</a> | <a href="#" onclick=modifyModal("' + itemList[key]["assetID"] + '")>Modify</a></td></tr>';
     }
 
     // Insert dynamically created rows into table
-    $('#tableBody').html(r.join('')); 
+    $('#tableBody').html(r.join(''));
+
+    // Remove no data warning if data exists
+    checkForData();
 }
 
 function showDetailsModal(item) {
@@ -92,18 +117,40 @@ function showModifyModal(item) {
     $("#modifyModal").modal('show');
 }
 
+// Refine table
+function refineTable() {
+    var input, filter, table, tr, td, i;
+    input = document.getElementById("searchAssetID");
+    filter = input.value.toUpperCase();
+    table = document.getElementById("dataTable");
+    tr = table.getElementsByTagName("tr");
+    for (i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td")[0];
+        if (td) {
+            if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                tr[i].style.display = "";
+            } else {
+                tr[i].style.display = "none";
+            }
+        }
+    }
+
+    checkForData();
+}
+
 // Populate table with list of items
 function populateTable() {
-
     // Call list-items API to get list of all items and send data to updateTable function to fill table
     getData('GET', 'https://bll0hoveu3.execute-api.us-east-1.amazonaws.com/prod/list-items', updateTable)
 }
 
+// Display details modal with appropriate information 
 function detailsModal(id) {
     // Call list-items API to get item and send data to showDetailsModal function to fill modal
     getData('POST', 'https://bll0hoveu3.execute-api.us-east-1.amazonaws.com/prod/get-items?assetID=' + id, showDetailsModal)
 }
 
+// Populate modify modal with appropariate information
 function modifyModal(id) {
     // Call list-items API to get item and send data to showModifyModal function to fill modal
     getData('POST', 'https://bll0hoveu3.execute-api.us-east-1.amazonaws.com/prod/get-items?assetID=' + id, showModifyModal)
