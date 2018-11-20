@@ -1,3 +1,12 @@
+function goHome() {
+  window.location.href = "index.html"
+}
+
+function goAdmin() {
+  window.location.href = "admin.html"
+}
+
+
 // ************************ //
 // ****  Validating  ****** //
 // ************************ //
@@ -223,9 +232,9 @@ $("#item-form").submit(function (e) {
     $.ajax(settings).done(function (response) {
       console.log(response);
 
-      // Show confirmation modal
-      $("#modal-confirmation").modal('show');
     });
+    // Show confirmation modal
+    $("#modal-confirmation").modal('show');
   }
 });
 
