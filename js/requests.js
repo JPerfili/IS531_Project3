@@ -1,26 +1,34 @@
 $("#item-form").submit(function(e) {
 
   e.preventDefault()
-  // console.log($(this).serializeArray());
-  // var form = $(this);
-  // console.log(form.serializeArray())
+  formArray = $(this).serializeArray();
+
+  var itemObject = {};
+  for (var i = 0; i < formArray.length; i++){
+    itemObject[formArray[i]['name']] = formArray[i]['value'];
+  }
+  console.log(itemObject)
+
+  var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "https://bll0hoveu3.execute-api.us-east-1.amazonaws.com/prod/create-item",
+    "method": "POST",
+    "headers": {
+      "Content-Type": "application/json",
+    },
+    "processData": false,
+    "data": JSON.stringify(itemObject)
+  }
+
+$.ajax(settings).done(function (response) {
+  console.log(response);
+});
 
   // $.ajax({
   //       method: 'POST',
-  //       url: _config.api.invokeURL + '/create-item',
-  //       data: JSON.stringify({
-  //           item: {
-  //               assetID: new_item.assetID,
-  //               text: new_item.text,
-  //               assetLocation: new_item.assetLocation,
-  //               description: new_item.description,
-  //               implementationMonth: new_item.implementationMonth,
-  //               implementationYear: new_item.implementationYear,
-  //               manufacturer: new_item.manufacturer,
-  //               manufacturerPart: new_item.manufacturerPart,
-  //               organizationalTag: new_item.organizationalTag
-  //           }
-  //       }),
+  //       url: 'https://bll0hoveu3.execute-api.us-east-1.amazonaws.com/prod//create-item',
+  //       data: JSON.stringify(itemObject),
   //       contentType: 'application/json',
   //       success: completeRequest,
   //       error: function ajaxError(jqXHR, textStatus, errorThrown) {
@@ -29,20 +37,18 @@ $("#item-form").submit(function(e) {
   //           alert('An error occured when creating a new item:\n' + jqXHR.responseText);
   //       }
   //   })
-
-    e.preventDefault(); // avoid to execute the actual submit of the form.
 });
 
-var settings = {
-  "async": true,
-  "crossDomain": true,
-  "url": "https://bll0hoveu3.execute-api.us-east-1.amazonaws.com/prod/list-items",
-  "method": "GET",
-}
+// var settings = {
+//   "async": true,
+//   "crossDomain": true,
+//   "url": "https://bll0hoveu3.execute-api.us-east-1.amazonaws.com/prod/list-items",
+//   "method": "GET",
+// }
 
-$.ajax(settings).done(function (response) {
-  console.log(response);
-});
+// $.ajax(settings).done(function (response) {
+//   // console.log(response);
+// });
 
   // console.log(JSON.stringify($('#item-form').serializeArray()))
   // console.log($("select[name=assignedLocation]").val())
