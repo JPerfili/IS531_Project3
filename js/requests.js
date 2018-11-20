@@ -26,72 +26,31 @@ $("#item-form").submit(function(e) {
   });
 });
 
+$("#update-form").submit(function(e) {
 
-function create_item(new_item) {
-    
-}
+  e.preventDefault()
+  console.log("WORKING")
+  formArray = $(this).serializeArray();
 
-function completeRequest(result) {
-    console.log('Response received from API: ', result);
-}
+  var itemObject = {};
+  for (var i = 0; i < formArray.length; i++){
+    itemObject[formArray[i]['name']] = formArray[i]['value'];
+  }
 
-function delete_item(new_item) {
-    $.ajax({
-        method: 'POST',
-        url: _config.api.invokeURL + '/delete-item',
-        data: JSON.stringify({
-            assetID: new_item.assetID
-        }),
-        contentType: 'application/json',
-        success: completeRequest,
-        error: function ajaxError(jqXHR, textStatus, errorThrown) {
-            console.error('Error creating new item: ', textStatus, ', Details: ', errorThrown);
-            console.error('Response: ', jqXHR.responseText);
-            alert('An error occured when creating a new item:\n' + jqXHR.responseText);
-        }
-    })
-}
+  // var settings = {
+  //   "async": true,
+  //   "crossDomain": true,
+  //   "url": "https://bll0hoveu3.execute-api.us-east-1.amazonaws.com/prod/update-item",
+  //   "method": "POST",
+  //   "headers": {
+  //     "Content-Type": "application/json"
+  //   },
+  //   "processData": false,
+  //   "data": JSON.stringify(itemObject)
+  // }
 
-function get_item(new_item) {
-    $.ajax({
-        method: 'POST',
-        url: _config.api.invokeURL + '/get-item',
-        data: JSON.stringify({
-            assetID: new_item.assetID
-        }),
-        contentType: 'application/json',
-        success: completeRequest,
-        error: function ajaxError(jqXHR, textStatus, errorThrown) {
-            console.error('Error creating new item: ', textStatus, ', Details: ', errorThrown);
-            console.error('Response: ', jqXHR.responseText);
-            alert('An error occured when creating a new item:\n' + jqXHR.responseText);
-        }
-    })
-}
+  // $.ajax(settings).done(function (response) {
+  //   console.log(response);
+  // });
+});
 
-function update_item(new_item) {
-    $.ajax({
-        method: 'POST',
-        url: _config.api.invokeURL + '/update-item',
-        data: JSON.stringify({
-            item: {
-                assetID: new_item.assetID,
-                text: new_item.text,
-                assetLocation: new_item.assetLocation,
-                description: new_item.description,
-                implementationMonth: new_item.implementationMonth,
-                implementationYear: new_item.implementationYear,
-                manufacturer: new_item.manufacturer,
-                manufacturerPart: new_item.manufacturerPart,
-                organizationalTag: new_item.organizationalTag
-            }
-        }),
-        contentType: 'application/json',
-        success: completeRequest,
-        error: function ajaxError(jqXHR, textStatus, errorThrown) {
-            console.error('Error creating new item: ', textStatus, ', Details: ', errorThrown);
-            console.error('Response: ', jqXHR.responseText);
-            alert('An error occured when creating a new item:\n' + jqXHR.responseText);
-        }
-    })
-}

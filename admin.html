@@ -139,7 +139,7 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form>
+                        <form id="update-form">
                             <fieldset>
                                 <div class="row">
                                     <div class="col-6">
@@ -147,33 +147,46 @@
                                         <!-- 10 digit alpha-numeric number -->
                                         <div class="form-group">
                                             <label class="col-form-label" for="assetID">Unique ID</label>
-                                            <input type="text" class="form-control" placeholder="ID" id="assetID">
+                                            <input type="text" class="form-control" placeholder="ID" name="assetID" id="assetID" readonly>
                                         </div>
 
                                         <!-- Current Assigned Location/Office -->
                                         <div class="form-group">
-                                            <label class="col-form-label" for="assignedLocation">Current Assigned
+                                            <label class="col-form-label" for="assetLocation">Current Assigned
                                                 Location/Office</label>
-                                            <input type="text" class="form-control" placeholder="Location/Office" id="assignedLocation">
+                                                <select class="form-control" name="assetLocation"  id="assetLocation">
+                                                    <option>Chicago</option>
+                                                    <option>Denver</option>
+                                                    <option>Los Angeles</option>
+                                                    <option>Salt Lake City</option>
+                                                    <option>New York City</option>
+                                                    <option>Seattle</option>
+                                                    <option>Houston</option>
+                                                    <option>San Franscisco</option>
+                                                    <option>Washington D.C.</option>
+                                                    <option>Boston</option>
+                                                    <option>Miami</option>
+                                                    <option>Atlanta</option>
+                                                </select>
                                         </div>
 
                                         <!-- Organizational Tag -->
                                         <div class="form-group">
                                             <label class="col-form-label" for="organizationalTag">Organizational Tag</label>
-                                            <input type="text" class="form-control" placeholder="Tag" id="organizationalTag">
+                                            <input type="text" class="form-control" placeholder="Tag" name="organizationalTag" id="organizationalTag">
                                         </div>
 
                                         <!-- Manufacturer -->
                                         <div class="form-group">
                                             <label class="col-form-label" for="manufacturer">Manufacturer</label>
-                                            <input type="text" class="form-control" placeholder="Name" id="manufacturer">
+                                            <input type="text" class="form-control" placeholder="Name" name="manufacturer" id="manufacturer">
                                         </div>
 
                                         <!-- Manufacturer Part# -->
                                         <div class="form-group">
                                             <label class="col-form-label" for="manufacturerPart">Manufacturer Part
                                                 Number</label>
-                                            <input type="number" class="form-control" placeholder="Part Number" id="manufacturerPart">
+                                            <input type="text" class="form-control" placeholder="Part Number" name="manufacturerPart" id="manufacturerPart">
                                         </div>
                                     </div>
                                     <div class="col-6">
@@ -181,14 +194,14 @@
                                         <!-- Description -->
                                         <div class="form-group">
                                             <label class="col-form-label" for="description">Description</label>
-                                            <textarea class="form-control" placeholder="Write description here" id="description"
+                                            <textarea class="form-control" placeholder="Write description here" name="description" id="description"
                                                 rows="2"></textarea>
                                         </div>
 
                                         <!-- Month Implemented -->
                                         <div class="form-group">
                                             <label class="col-form-label" for="implementationMonth">Month Implemented</label>
-                                            <select class="form-control" id="implementationMonth">
+                                            <select class="form-control" name="implementationMonth" id="implementationMonth">
                                                 <option>
                                                     </opttion>
                                                 <option>January</option>
@@ -210,24 +223,23 @@
                                         <div class="form-group">
                                             <label class="col-form-label" for="implementationYear">Year Implemented</label>
                                             <input type="number" min="1950" max="2018" class="form-control" placeholder="1950 - 2018"
-                                                id="implementationYear">
+                                                name="implementationYear" id="implementationYear">
                                         </div>
 
                                         <!-- Maintenance Notes -->
                                         <div class="form-group">
                                             <label class="col-form-label" for="maintenanceNotes">Maintenance Notes</label>
                                             <textarea class="form-control" placeholder="Write maintenance notes here"
-                                                id="maintenanceNotes" rows="5"></textarea>
+                                                name="maintenanceNotes" id="maintenanceNotes" rows="5"></textarea>
                                         </div>
                                     </div>
                                 </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary" id="update-btn">Update</button>
+                            <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Cancel</button>
+                        </div>
                             </fieldset>
                         </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary">Update</button>
-                        <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Cancel</button>
-
                     </div>
                 </div>
             </div>
@@ -241,6 +253,7 @@
             crossorigin="anonymous"></script>
         <script type="js/config.js"></script>
         <script src="js/main.js"></script>
+        <script src="js/requests.js"></script>
 
     </div>
 </body>

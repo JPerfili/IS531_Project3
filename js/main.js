@@ -104,7 +104,7 @@ function showModifyModal(item) {
 
     // Populate form input fields with existing values
     $("#assetID").val(item["assetID"])
-    $("#assignedLocation").val(item["assetLocation"])
+    $("#assetLocation").val(item["assetLocation"])
     $("#organizationalTag").val(item["organizationalTag"])
     $("#manufacturer").val(item["manufacturer"])
     $("#manufacturerPart").val(item["manufacturerPart"])
