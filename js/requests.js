@@ -24,7 +24,7 @@ $("#item-form").submit(function(e) {
   $.ajax(settings).done(function (response) {
     console.log(response);
     console.log('Successfully Logged In');
-    window.location.href = 'admin.html';
+    window.location.href = 'login.html';
   });
 });
 
