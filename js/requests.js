@@ -274,6 +274,7 @@ $("#update-form").submit(function (e) {
       "data": JSON.stringify(itemObject)
     }
 
+    // Send request then execute function on success
     $.ajax(settings).done(function (response) {
       console.log(response);
       // Close modal
