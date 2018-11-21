@@ -1,26 +1,32 @@
+// ************************ //
+// ****  Navigation  ****** //
+// ************************ //
+
 function goHome() {
   window.location.href = "index.html"
 }
 
 function goAdmin() {
-  window.location.href = "admin.html"
+  window.location.href = "login.html"
 }
 
-
 // ************************ //
-// ****  Validating  ****** //
+// ****  Validation  ****** //
 // ************************ //
 
 // Display validation error
 function showValidationError(name, show) {
   if (show) {
+    // Show validation error
     $("#" + name).addClass("is-invalid");
   }
   else {
+    // Hide validation error
     $("#" + name).removeClass("is-invalid");
   }
 }
 
+// Get current input and overwrite with form value if available
 function getInput(name, form) {
   input = $("#" + name).val();
   // Overwrite with form submission data if available
@@ -37,7 +43,7 @@ function checkNull(name, form) {
   input = getInput(name, form);
   // Validation
   // Must not be null
-  if (input == null || input == "") {
+  if (input == null || input == "" || input == " -- ") {
     showValidationError(name, true);
     return false;
   }
@@ -47,16 +53,12 @@ function checkNull(name, form) {
   }
 }
 
-/* Validate Asset ID
+// Validate Asset ID
 function validateAssetId(form) {
   name = "assetID";
   input = getInput(name, form);
-  // Overwrite with form submission data if available
-  if (form[name] == null) {
-    input = form[name];
-  }
   // Only allow values between 1950 and 2018
-  if (input == null || input == /[^0-9][^a-z]/i) {
+  if (input == null || input.match(/[^A-Z,0-9]/gi) || input == "" || input.length != 10) {
     showValidationError(name, true);
     return false;
   }
@@ -64,7 +66,7 @@ function validateAssetId(form) {
     showValidationError(name, false);
     return true;
   }
-} */
+}
 
 // Validate Asset Location
 function validateAssetLocation(form) {
@@ -173,7 +175,7 @@ function validateForm(form) {
 
   var v = []; j = -1;
   // Run validations
-  // v[++j] = validateAssetId(form);
+  v[++j] = validateAssetId(form);
   v[++j] = validateAssetLocation(form);
   v[++j] = validateOrganizationalTag(form);
   v[++j] = validateManufacturer(form);
@@ -183,6 +185,7 @@ function validateForm(form) {
   v[++j] = validateImplementationYear(form);
   v[++j] = validateMaintenanceNotes(form);
 
+  // Return overall result
   if (v.includes(false)) {
     return false;
   }
@@ -233,13 +236,14 @@ $("#item-form").submit(function (e) {
       console.log(response);
 
     });
+
     // Show confirmation modal
     $("#modal-confirmation").modal('show');
   }
 });
 
 $("#update-form").submit(function (e) {
-
+  
   e.preventDefault()
   console.log("WORKING")
   formArray = $(this).serializeArray();
@@ -267,6 +271,7 @@ $("#update-form").submit(function (e) {
     $.ajax(settings).done(function (response) {
       console.log(response);
       // Close modal
+      alert("Done!");
       $("#modifyModal").modal('hide');
       // Refresh table
       populateTable();

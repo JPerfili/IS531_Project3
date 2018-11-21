@@ -95,7 +95,8 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <p class="detail-heading">ID</p>
+                        <p id="dm-id" style="display: none"></p>
+                        <p class="detail-heading">Asset ID</p>
                         <p id="dm-itemID">Modal body text goes here.</p>
 
                         <p class="detail-heading">Location</p>
@@ -144,11 +145,16 @@
                                 <div class="row">
                                     <div class="col-6">
 
-                                        <!-- 10 digit alpha-numeric number -->
+                                        <!-- Database ID -->
+                                        <input type="hidden" class="form-control" placeholder="ID" name="id" id="id" readonly>
+
+                                        <!-- Assed ID -->
                                         <div class="form-group">
-                                            <label class="col-form-label" for="assetID">Unique ID</label>
-                                            <input type="text" class="form-control" placeholder="ID" name="assetID" id="assetID" readonly>
-                                        </div>
+                                                <label class="col-form-label" for="assetID">Asset ID</label>
+                                                <input type="text" class="form-control" placeholder="ID" onchange="validateAssetId()"
+                                                    name="assetID" id="assetID">
+                                                <div class="invalid-feedback">Please enter a 10 digit alpha-numeric asset ID.</div>
+                                            </div>
 
                                         <!-- Current Assigned Location/Office -->
                                         <div class="form-group">

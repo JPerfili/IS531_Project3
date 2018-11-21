@@ -9,7 +9,7 @@ $(document).ready(function () {
         $("#detailsModal").modal('hide');
 
         // Get current item by ID and populate modify modal with records. 
-        modifyModal($("#dm-itemID").text())
+        modifyModal($("#dm-id").text())
     });
 
 });
@@ -33,10 +33,12 @@ function getData(method, url, OnCompletionFunction) {
 }
 
 function checkForData() {
+    // Variables
     var table, tr, td, i;
     table = document.getElementById("dataTable");
     tr = table.getElementsByTagName("tr");
     var allHidden = true;
+    // Check for data
     for (i = 0; i < tr.length; i++) {
         td = tr[i].getElementsByTagName("td")[0];
         if (td) {
@@ -46,6 +48,7 @@ function checkForData() {
         }
     }
 
+    // Show "No Data" if applicable
     if (allHidden == true) {
         $("#noDataError").show();
     }
@@ -74,7 +77,7 @@ function updateTable(itemList) {
         r[++j] = itemList[key]["implementationMonth"];
         r[++j] = ', ';
         r[++j] = itemList[key]["implementationYear"];
-        r[++j] = '</td><td><a href="#" onclick=detailsModal("' + itemList[key]["assetID"] + '")>Details</a> | <a href="#" onclick=modifyModal("' + itemList[key]["assetID"] + '")>Modify</a></td></tr>';
+        r[++j] = '</td><td><a href="#" onclick=detailsModal("' + itemList[key]["id"] + '")>Details</a> | <a href="#" onclick=modifyModal("' + itemList[key]["id"] + '")>Modify</a></td></tr>';
     }
 
     // Insert dynamically created rows into table
@@ -87,14 +90,15 @@ function updateTable(itemList) {
 function showDetailsModal(item) {
 
     // Populate details modal with item information
-    $("#dm-itemID").text(item["assetID"])
-    $("#dm-itemLocation").text(item["assetLocation"])
-    $("#dm-itemTag").text(item["organizationalTag"])
-    $("#dm-itemManufacturer").text(item["manufacturer"])
-    $("#dm-itemPartNumber").text(item["manufacturerPart"])
-    $("#dm-itemDescription").text(item["description"])
-    $("#dm-itemImplemented").text(item["implementationMonth"] + '/' + item["implementationYear"])
-    $("#dm-itemNotes").text(item["maintenanceNotes"])
+    $("#dm-id").text(item["id"]);
+    $("#dm-itemID").text(item["assetID"]);
+    $("#dm-itemLocation").text(item["assetLocation"]);
+    $("#dm-itemTag").text(item["organizationalTag"]);
+    $("#dm-itemManufacturer").text(item["manufacturer"]);
+    $("#dm-itemPartNumber").text(item["manufacturerPart"]);
+    $("#dm-itemDescription").text(item["description"]);
+    $("#dm-itemImplemented").text(item["implementationMonth"] + '/' + item["implementationYear"]);
+    $("#dm-itemNotes").text(item["maintenanceNotes"]);
 
     // Show modal
     $("#detailsModal").modal('show');
@@ -119,11 +123,13 @@ function showModifyModal(item) {
 
 // Refine table
 function refineTable() {
+    // Variables
     var input, filter, table, tr, td, i;
     input = document.getElementById("searchAssetID");
     filter = input.value.toUpperCase();
     table = document.getElementById("dataTable");
     tr = table.getElementsByTagName("tr");
+    // Toggle visibility based on filter match
     for (i = 0; i < tr.length; i++) {
         td = tr[i].getElementsByTagName("td")[0];
         if (td) {
@@ -135,6 +141,7 @@ function refineTable() {
         }
     }
 
+    // Show "No Data" message if there is no data
     checkForData();
 }
 
@@ -147,12 +154,12 @@ function populateTable() {
 // Display details modal with appropriate information 
 function detailsModal(id) {
     // Call list-items API to get item and send data to showDetailsModal function to fill modal
-    getData('POST', 'https://bll0hoveu3.execute-api.us-east-1.amazonaws.com/prod/get-items?assetID=' + id, showDetailsModal)
+    getData('POST', 'https://bll0hoveu3.execute-api.us-east-1.amazonaws.com/prod/get-items?id=' + id, showDetailsModal)
 }
 
 // Populate modify modal with appropariate information
 function modifyModal(id) {
     // Call list-items API to get item and send data to showModifyModal function to fill modal
-    getData('POST', 'https://bll0hoveu3.execute-api.us-east-1.amazonaws.com/prod/get-items?assetID=' + id, showModifyModal)
+    getData('POST', 'https://bll0hoveu3.execute-api.us-east-1.amazonaws.com/prod/get-items?id=' + id, showModifyModal)
 }
 

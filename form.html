@@ -54,12 +54,22 @@
                             <fieldset>
                                 <div class="row">
                                     <div class="col-6">
+
+                                        <!-- Asset ID -->
+                                        <div class="form-group">
+                                            <label class="col-form-label" for="assetID">Asset ID</label>
+                                            <input type="text" class="form-control" placeholder="ID" onchange="validateAssetId()"
+                                                name="assetID" id="assetID">
+                                            <div class="invalid-feedback">Please enter a 10 digit alpha-numeric asset ID.</div>
+                                        </div>
+
                                         <!-- Current Assigned Location/Office -->
                                         <div class="form-group">
                                             <label class="col-form-label" for="assetLocation">Current Assigned
                                                 Location/Office</label>
-                                            <select class="form-control" onchange="validateAssetLocation()" name="assetLocation" id="assetLocation">
-                                                <option></option>
+                                            <select class="form-control" onchange="validateAssetLocation()" name="assetLocation"
+                                                id="assetLocation">
+                                                <option> -- </option>
                                                 <option>Chicago</option>
                                                 <option>Denver</option>
                                                 <option>Los Angeles</option>
@@ -80,25 +90,26 @@
                                         <div class="form-group">
                                             <label class="col-form-label" for="organizationalTag">Organizational Tag</label>
                                             <input type="text" name="organizationalTag" class="form-control"
-                                                placeholder="Tag" onchange="validateOrganizationalTag()" name="organizationalTag" id="organizationalTag">
-                                                <div class="invalid-feedback">Please enter an organizational tag.</div>
+                                                placeholder="Tag" onchange="validateOrganizationalTag()" name="organizationalTag"
+                                                id="organizationalTag">
+                                            <div class="invalid-feedback">Please enter an organizational tag.</div>
                                         </div>
 
                                         <!-- Manufacturer -->
                                         <div class="form-group">
                                             <label class="col-form-label" for="manufacturer">Manufacturer</label>
-                                            <input type="text" class="form-control" placeholder="Name" onchange="validateManufacturer()" name="manufacturer"
-                                                id="manufacturer">
-                                                <div class="invalid-feedback">Please enter a manufacturer.</div>
+                                            <input type="text" class="form-control" placeholder="Name" onchange="validateManufacturer()"
+                                                name="manufacturer" id="manufacturer">
+                                            <div class="invalid-feedback">Please enter a manufacturer.</div>
                                         </div>
 
                                         <!-- Manufacturer Part# -->
                                         <div class="form-group">
                                             <label class="col-form-label" for="manufacturerPart">Manufacturer Part
                                                 Number</label>
-                                            <input type="Text" class="form-control" placeholder="Part Number" onchange="validateManufacturerPart()" name="manufacturerPart"
-                                                id="manufacturerPart">
-                                                <div class="invalid-feedback">Please anter a manufacturer part number.</div>
+                                            <input type="Text" class="form-control" placeholder="Part Number" onchange="validateManufacturerPart()"
+                                                name="manufacturerPart" id="manufacturerPart">
+                                            <div class="invalid-feedback">Please anter a manufacturer part number.</div>
                                         </div>
                                     </div>
                                     <div class="col-6">
@@ -108,14 +119,15 @@
                                             <label class="col-form-label" for="description">Description</label>
                                             <textarea class="form-control" placeholder="Write description here" name="description"
                                                 onchange="validateDescription()" id="description" rows="2"></textarea>
-                                                <div class="invalid-feedback">Please enter a description</div>
+                                            <div class="invalid-feedback">Please enter a description</div>
                                         </div>
 
                                         <!-- Month Implemented -->
                                         <div class="form-group">
                                             <label class="col-form-label" for="implementationMonth">Month Implemented</label>
-                                            <select class="form-control" onchange="validateImplementationMonth()" name="implementationMonth" id="implementationMonth">
-                                                <option></option>
+                                            <select class="form-control" onchange="validateImplementationMonth()" name="implementationMonth"
+                                                id="implementationMonth">
+                                                <option> -- </option>
                                                 <option>January</option>
                                                 <option>February</option>
                                                 <option>March</option>
@@ -135,8 +147,10 @@
                                         <!-- Year Implemented -->
                                         <div class="form-group">
                                             <label class="col-form-label" for="implementationYear">Year Implemented</label>
-                                            <input type="number" class="form-control" placeholder="1950 - 2018" onchange="validateImplementationYear()" name="implementationYear" id="implementationYear">
-                                                <div class="invalid-feedback">Please enter the implementation year between 1950 and 2018.</div>
+                                            <input type="number" class="form-control" placeholder="1950 - 2018"
+                                                onchange="validateImplementationYear()" name="implementationYear" id="implementationYear">
+                                            <div class="invalid-feedback">Please enter the implementation year between
+                                                1950 and 2018.</div>
                                         </div>
 
                                         <!-- Maintenance Notes -->
@@ -165,24 +179,24 @@
     <!-- Confirmation Modal -->
     <div id="modal-confirmation" class="modal">
         <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title">Form Submitted</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Form Submitted</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Your form has been successfully submitted. </p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" onclick="goAdmin()" class="btn btn-primary" data-dismiss="modal">View List</button>
+                    <button type="button" onclick="clearForm()" class="btn btn-secondary">Submit new Form</button>
+                    <button type="button" onclick="goHome()" class="btn btn-secondary" data-dismiss="modal">Home</button>
+                </div>
             </div>
-            <div class="modal-body">
-              <p>Your form has been successfully submitted. </p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" onclick="goAdmin()" class="btn btn-primary" data-dismiss="modal">View List</button>
-              <button type="button" onclick="clearForm()" class="btn btn-secondary">Submit new Form</button>
-              <button type="button" onclick="goHome()" class="btn btn-secondary" data-dismiss="modal">Home</button>
-            </div>
-          </div>
         </div>
-      </div>
+    </div>
 
     <script src="js/vendor/jquery-3.1.0.js"></script>
     <script src="js/vendor/aws-cognito-sdk.min.js"></script>
