@@ -65,6 +65,8 @@ function updateTable(itemList) {
     for (var key = 0, size = itemList.length; key < size; key++) {
         r[++j] = '<tr><td>';
         r[++j] = itemList[key]["assetID"];
+        r[++j] = '</td><td style="display:none;">'
+        r[++j] = itemList[key]["id"]
         r[++j] = '</td><td>';
         r[++j] = itemList[key]["assetLocation"];
         r[++j] = '</td><td>';
@@ -107,6 +109,7 @@ function showDetailsModal(item) {
 function showModifyModal(item) {
 
     // Populate form input fields with existing values
+    $("#id").val(item["id"]);
     $("#assetID").val(item["assetID"])
     $("#assetLocation").val(item["assetLocation"])
     $("#organizationalTag").val(item["organizationalTag"])

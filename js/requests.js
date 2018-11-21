@@ -153,7 +153,6 @@ function validateImplementationYear(form) {
   input = getInput(name, form);
   // Validations
   // Only allow values between 1950 and 2018
-  console.log("Input: " + input);
   if (input == null || input < 1950 || input > 2018) {
     showValidationError(name, true);
     return false;
@@ -208,9 +207,14 @@ function clearForm() {
 
 $("#item-form").submit(function (e) {
 
+  // prevent default action from button
   e.preventDefault()
+
+  // get array of items from form
   formArray = $(this).serializeArray();
 
+
+  // create object from array
   var itemObject = {};
   for (var i = 0; i < formArray.length; i++) {
     itemObject[formArray[i]['name']] = formArray[i]['value'];
@@ -245,13 +249,15 @@ $("#item-form").submit(function (e) {
 $("#update-form").submit(function (e) {
   
   e.preventDefault()
-  console.log("WORKING")
   formArray = $(this).serializeArray();
 
+  // create object from array
   var itemObject = {};
   for (var i = 0; i < formArray.length; i++) {
     itemObject[formArray[i]['name']] = formArray[i]['value'];
   }
+
+  console.log(itemObject)
 
   // Validate inputs
   if (validateForm(itemObject)) {
