@@ -277,7 +277,7 @@ $("#update-form").submit(function (e) {
     $.ajax(settings).done(function (response) {
       console.log(response);
       // Close modal
-      alert("Done!");
+      alert("Updated!");
       $("#modifyModal").modal('hide');
       // Refresh table
       populateTable();
