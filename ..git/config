@@ -1,0 +1,10 @@
+[core]
+	repositoryformatversion = 0
+	filemode = true
+	bare = true
+	ignorecase = true
+	precomposeunicode = true
+[remote "origin"]
+	url = /Users/mmoody/Desktop/school/past classes/fall-2018/is 531/Project_3/IS531_Project3_Code/.
+	fetch = +refs/*:refs/*
+	mirror = true
